@@ -30,6 +30,7 @@
 
 ## 使っている技術
 - HTML / CSS / JavaScript（フレームワークなし）
+- HTML の文法チェック: html-validate（`npm install` のあと `npm run lint`）
 - 公開先: GitHub Pages（https://wataaass.github.io/ 、2026-09-30 公開）
 
 ## 設計上の判断

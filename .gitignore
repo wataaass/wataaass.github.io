@@ -1,0 +1,2 @@
+# npm でダウンロードした道具本体（package.json から再現できる）
+node_modules/

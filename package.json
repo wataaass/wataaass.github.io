@@ -1,0 +1,11 @@
+{
+  "name": "wataaass-portfolio",
+  "private": true,
+  "description": "wataaass の制作記録（ポートフォリオサイト）",
+  "scripts": {
+    "lint": "html-validate \"*.html\" \"works/*.html\""
+  },
+  "devDependencies": {
+    "html-validate": "^11.16.1"
+  }
+}
