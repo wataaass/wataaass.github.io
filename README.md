@@ -5,7 +5,7 @@
 
 ## 制作情報
 - 制作期間: 2026-09-30 〜 （制作中）
-- 最終更新日: 2026-09-30
+- 最終更新日: 2026-10-01
 - 作者の学年（制作当時）: 広島市立大学 情報科学部 1年
 - 使用した AI ツール / モデル: Claude Code（Claude Opus 5.5）
 - AI の役割と自分の役割:
@@ -31,6 +31,10 @@
 ## 使っている技術
 - HTML / CSS / JavaScript（フレームワークなし）
 - HTML の文法チェック: html-validate（`npm install` のあと `npm run lint`）
+- 確認用のスクリプト（`scripts/`、Node.js）
+  - `npm run check`: 文法チェックとリンク切れの確認をまとめて行う。公開前に毎回実行する
+  - `npm run links`: リンク切れの確認だけを行う。フォルダ内の HTML を自動で探すので、ページを増やしても書き直さなくてよい
+  - `npm run serve`: 確認用サーバーを起動する。ブラウザで http://localhost:8123/ を開くと、公開時と同じ状態で見た目を確認できる
 - 公開先: GitHub Pages（https://wataaass.github.io/ 、2026-09-30 公開）
 
 ## 設計上の判断

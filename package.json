@@ -3,7 +3,10 @@
   "private": true,
   "description": "wataaass の制作記録（ポートフォリオサイト）",
   "scripts": {
-    "lint": "html-validate \"*.html\" \"works/*.html\""
+    "lint": "html-validate \"*.html\" \"works/*.html\"",
+    "links": "node scripts/check-links.mjs",
+    "check": "npm run lint && npm run links",
+    "serve": "node scripts/serve.mjs"
   },
   "devDependencies": {
     "html-validate": "^11.16.1"
