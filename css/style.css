@@ -49,6 +49,9 @@ h2,
 h3,
 .cover__lead,
 .toc__desc,
+.chapter__lead,
+.catalog__desc,
+.timeline__desc,
 .okuzuke__list dd {
   word-break: auto-phrase;
 }
@@ -60,7 +63,7 @@ h3 {
   font-family: var(--font-mincho);
   font-weight: 700;
   line-height: 1.4;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
   font-feature-settings: "palt"; /* 和文の字間を詰めて見出しを締める */
 }
 
@@ -141,7 +144,7 @@ a:hover {
   color: var(--sea);
 }
 
-.site-nav a[aria-current="page"] {
+.site-nav a[aria-current] {
   border-bottom: 1px solid currentColor;
   color: var(--sea);
 }
@@ -295,6 +298,179 @@ main {
   }
 }
 
+/* ---------- 各ページの見出し（章のはじめ） ---------- */
+.chapter {
+  max-width: var(--measure);
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.chapter__title {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+}
+
+.chapter__lead {
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.work-date {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* ---------- 作品一覧: 制作時期をそろえた目録 ---------- */
+.catalog {
+  max-width: 48rem;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+  list-style: none;
+}
+
+.catalog li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.catalog__link {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 0.25rem 2rem;
+  padding: 1.5rem 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.catalog__date {
+  padding-top: 0.3rem;
+  color: var(--muted);
+  font-family: var(--font-mincho);
+  font-size: 0.9375rem;
+}
+
+.catalog__title {
+  font-size: 1.3125rem;
+  line-height: 1.5;
+}
+
+.catalog__desc {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.catalog__link:hover .catalog__title {
+  color: var(--sea);
+}
+
+@media (max-width: 40rem) {
+  .catalog__link {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 学習タイムライン: 少ない項目でも詰まって見える縦の流れ ---------- */
+.timeline {
+  max-width: 40rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  column-gap: 2rem;
+}
+
+.timeline time {
+  padding-top: 0.15rem;
+  color: var(--muted);
+  font-family: var(--font-mincho);
+}
+
+.timeline__body {
+  position: relative;
+  padding: 0 0 2.5rem 1.75rem;
+  border-left: 1px solid var(--rule);
+}
+
+.timeline li:last-child .timeline__body {
+  padding-bottom: 0;
+}
+
+/* 縦線の上の小さな四角い印 */
+.timeline__body::before {
+  content: "";
+  position: absolute;
+  top: 0.75rem;
+  left: -4px;
+  width: 7px;
+  height: 7px;
+  background: var(--sea);
+}
+
+.timeline__title {
+  font-size: 1.125rem;
+}
+
+.timeline__desc {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 40rem) {
+  .timeline li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .timeline time {
+    padding-left: 1.75rem;
+    border-left: 1px solid var(--rule);
+  }
+}
+
+/* ---------- 読み物（作品詳細・AI との開発スタイル） ---------- */
+.prose {
+  max-width: var(--measure);
+}
+
+.prose h2 {
+  margin-top: 3.5rem;
+  font-size: 1.5rem;
+}
+
+.prose h2:first-child {
+  margin-top: 0;
+}
+
+.prose p,
+.prose ul {
+  margin-top: 1rem;
+}
+
+.prose ul {
+  padding-left: 1.25em;
+}
+
+/* 手順4で書く予定の仮の文章。完成前に消す */
+.todo {
+  padding-left: 1rem;
+  border-left: 2px dashed var(--rule);
+  color: var(--muted);
+}
+
+.work-okuzuke {
+  margin-top: clamp(3rem, 8vw, 5rem);
+}
+
 /* ---------- 奥付（フッターと作品詳細で共通） ---------- */
 .site-footer {
   border-top: 1px solid var(--rule);
@@ -328,6 +504,7 @@ main {
   font-family: var(--font-mincho);
   font-size: 1.125rem;
   font-weight: 700;
+  font-feature-settings: "palt";
 }
 
 .okuzuke__list {
@@ -337,7 +514,7 @@ main {
 
 .okuzuke__list div {
   display: grid;
-  grid-template-columns: 5.5em minmax(0, 1fr);
+  grid-template-columns: 6.5em minmax(0, 1fr);
   gap: 1rem;
 }
 
@@ -348,4 +525,23 @@ main {
 
 .okuzuke__list dd {
   margin: 0;
+}
+
+/* サイト全体の奥付（フッター）は控えめにし、作品の奥付を主役にする */
+.site-footer .okuzuke {
+  padding-top: 0;
+  border-bottom: 0;
+}
+
+.site-footer .okuzuke::before {
+  display: none;
+}
+
+.site-footer .okuzuke__title {
+  font-size: 1rem;
+}
+
+.site-footer .okuzuke__list {
+  color: var(--muted);
+  font-size: 0.8125rem;
 }
