@@ -1,0 +1,351 @@
+/* ==========================================================
+   wataaass の制作記録 共通スタイル
+   テーマ: 本の奥付。トップが目次、各ページが章、フッターが奥付。
+   ========================================================== */
+
+/* ---------- 色・書体・寸法の基準値 ---------- */
+:root {
+  --shell: #f6f7f5;  /* 牡蠣殻: 背景 */
+  --ink: #1e2a33;    /* 墨藍: 本文 */
+  --muted: #5b6770;  /* 島影: 日付や補足 */
+  --rule: #d5dad8;   /* 罫線 */
+  --sea: #1f5f74;    /* 瀬戸内の海: リンクと奥付 */
+
+  --font-mincho: "Shippori Mincho", "Yu Mincho", "YuMincho", serif;
+  --font-gothic: "BIZ UDPGothic", "Yu Gothic", "YuGothic", sans-serif;
+
+  --measure: 38em;   /* 本文 1 行の最大幅（全角約 38 字） */
+  --page: 60rem;     /* ページ全体の最大幅 */
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+
+  color-scheme: light;
+}
+
+/* ---------- 基本 ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--shell);
+  color: var(--ink);
+  font-family: var(--font-gothic);
+  font-size: 1rem;
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+  line-break: strict;
+}
+
+/* 対応ブラウザでは、「い/つ」のような単語の途中での改行を避ける */
+h1,
+h2,
+h3,
+.cover__lead,
+.toc__desc,
+.okuzuke__list dd {
+  word-break: auto-phrase;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-mincho);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  font-feature-settings: "palt"; /* 和文の字間を詰めて見出しを締める */
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--sea);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sea);
+  outline-offset: 3px;
+}
+
+/* キーボード操作の人がメニューを飛ばして本文へ移れるリンク */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: var(--gutter);
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--ink);
+  color: var(--shell);
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* ---------- ヘッダーとメニュー ---------- */
+.site-header {
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter);
+}
+
+.site-name {
+  color: var(--ink);
+  font-family: var(--font-mincho);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  padding-block: 0.25rem;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--sea);
+}
+
+.site-nav a[aria-current="page"] {
+  border-bottom: 1px solid currentColor;
+  color: var(--sea);
+}
+
+.menu-button {
+  display: none;
+}
+
+/* スマホ幅: メニューを縦に並べる。JS が動くときだけ開閉式にする */
+@media (max-width: 40rem) {
+  .site-nav {
+    flex-basis: 100%;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .site-nav li + li {
+    border-top: 1px solid var(--rule);
+  }
+
+  .site-nav a {
+    display: block;
+    padding: 0.75rem 0;
+  }
+
+  .js .menu-button {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  /* 閉じているときは高さ 0 で隠し、キーボードでも選べないようにする */
+  .js .site-nav {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.25s ease, visibility 0s 0.25s;
+  }
+
+  .js .site-nav > ul {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .js .site-header.is-open .site-nav {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows 0.25s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .site-nav,
+  .js .site-header.is-open .site-nav {
+    transition: none;
+  }
+}
+
+/* ---------- 本文エリア ---------- */
+main {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gutter);
+}
+
+/* ---------- トップ: 表紙と目次 ---------- */
+.cover {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  column-gap: clamp(1.5rem, 6vw, 5rem);
+}
+
+.cover__title {
+  writing-mode: vertical-rl;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  font-feature-settings: normal;
+}
+
+.cover__body {
+  max-width: var(--measure);
+  padding-top: 0.5rem;
+}
+
+.cover__lead {
+  font-size: 1.0625rem;
+}
+
+.toc__heading {
+  margin-top: 3.5rem;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+.toc {
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+  list-style: none;
+}
+
+.toc li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.toc__link {
+  display: grid;
+  grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+  gap: 0.25rem 2rem;
+  padding: 1.25rem 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.toc__title {
+  font-family: var(--font-mincho);
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  font-feature-settings: "palt";
+}
+
+.toc__desc {
+  align-self: center;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.toc__link:hover .toc__title {
+  color: var(--sea);
+}
+
+@media (max-width: 40rem) {
+  .toc__link {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 奥付（フッターと作品詳細で共通） ---------- */
+.site-footer {
+  border-top: 1px solid var(--rule);
+}
+
+.site-footer__inner {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 3rem var(--gutter) 4rem;
+}
+
+.okuzuke {
+  position: relative;
+  max-width: 32rem;
+  padding: 1.25rem 0 1rem;
+  border-bottom: 1px solid var(--sea);
+}
+
+/* 子持ち罫: 太い線と細い線を平行に引いた、和文の印刷で使われる罫線 */
+.okuzuke::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  border-top: 3px solid var(--sea);
+  border-bottom: 1px solid var(--sea);
+}
+
+.okuzuke__title {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mincho);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.okuzuke__list {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.okuzuke__list div {
+  display: grid;
+  grid-template-columns: 5.5em minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.okuzuke__list dt {
+  color: var(--muted);
+  font-family: var(--font-mincho);
+}
+
+.okuzuke__list dd {
+  margin: 0;
+}
