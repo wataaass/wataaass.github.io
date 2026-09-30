@@ -30,7 +30,7 @@
 
 ## 使っている技術
 - HTML / CSS / JavaScript（フレームワークなし）
-- 公開先: GitHub Pages（予定）
+- 公開先: GitHub Pages（https://wataaass.github.io/ 、2026-09-30 公開）
 
 ## 設計上の判断
 - **フレームワークを使わない**: 仕組みを基礎から理解し、面接で自分の言葉で説明できるようにするため。
