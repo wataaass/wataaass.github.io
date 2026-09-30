@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="3" fill="#1f5f74"/>
+  <!-- 子持ち罫: 太い線と細い線 -->
+  <rect x="7" y="10" width="18" height="4" fill="#f6f7f5"/>
+  <rect x="7" y="17" width="18" height="1.5" fill="#f6f7f5"/>
+</svg>

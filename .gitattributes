@@ -1,0 +1,2 @@
+# テキストファイルの改行を LF にそろえる（Windows でも変換しない）
+* text=auto eol=lf
