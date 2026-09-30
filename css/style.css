@@ -460,13 +460,6 @@ main {
   padding-left: 1.25em;
 }
 
-/* 手順4で書く予定の仮の文章。完成前に消す */
-.todo {
-  padding-left: 1rem;
-  border-left: 2px dashed var(--rule);
-  color: var(--muted);
-}
-
 .work-okuzuke {
   margin-top: clamp(3rem, 8vw, 5rem);
 }
