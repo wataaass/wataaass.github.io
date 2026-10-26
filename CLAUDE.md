@@ -2,7 +2,10 @@
 
 ## コーディングとテスト検証の分担
 
-- コードを書く作業とテストの検証は、OpenCode Go の DeepSeek V4.1 Flash に任せる（deepseek-coder スキルの手順に従う）。Claude は設計・指示・レビューを担当する
+- Claude が司令塔、OpenCode Go の DeepSeek V4.1 Flash が実働役（deepseek-coder スキルの手順に従う）
+  - Claude: 方針を決め、作業を小さく分け、DeepSeek への指示文を書く。返ってきた変更を `git diff` で読み、結果を確かめてユーザーに報告する
+  - DeepSeek: コードを書く。テストを書いて実行する
+  - Claude は自分でコードを書かない。直すときも DeepSeek に具体的に再依頼する
 - 使うモデルは OpenCode Go のもの。無料版（`opencode/deepseek-v4.1-flash-free`）は使わない
 - reasoning effort は high にする（`--variant high`）
 - 実行例: `opencode run -m opencode-go/<DeepSeek V4.1 Flash のモデル ID> --variant high --dir "<プロジェクト>" "<指示文>"`
