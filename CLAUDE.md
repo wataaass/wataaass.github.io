@@ -8,6 +8,6 @@
   - Claude は自分でコードを書かない。直すときも DeepSeek に具体的に再依頼する
 - 使うモデルは OpenCode Go のもの。無料版（`opencode/deepseek-v4.1-flash-free`）は使わない
 - reasoning effort は high にする（`--variant high`）
-- 実行例: `opencode run -m opencode-go/<DeepSeek V4.1 Flash のモデル ID> --variant high --dir "<プロジェクト>" "<指示文>"`
-  - モデル ID は `opencode models opencode-go` で確かめる
+- 実行例: `opencode run -m opencode-go/deepseek-v4.1-flash --variant high --dir "<プロジェクト>" "<指示文>"`
+- クラウドでは API キーを Network secrets（`opencode.ai` 宛て）に置いている。opencode に OpenCode Go を認識させるため、環境変数 `OPENCODE_API_KEY` が空なら `OPENCODE_API_KEY=dummy` を付けて実行する
 - OpenCode Go の API キーが環境にない、またはモデルが見つからないときは、無料版に切り替えずユーザーに知らせる
